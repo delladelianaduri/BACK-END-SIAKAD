@@ -12,6 +12,11 @@ class User extends Model implements Authenticatable, JWTSubject
 {
     use AuthenticatableTrait, HasFactory;
 
+    // Tentukan kolom yang dapat diisi secara massal
+    protected $fillable = [
+        'name', 'email', 'password', 'remember_token'
+    ];
+
     // Implementasi metode-metode dari Authenticatable
     public function getAuthIdentifierName()
     {
