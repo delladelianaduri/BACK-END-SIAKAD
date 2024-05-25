@@ -25,17 +25,9 @@ class Authenticate
         $this->auth = $auth;
     }
 
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next, ...$guards)
     {
-        if ($this->auth->guard($guard)->guest()) {
+        if ($this->auth->guard()->guest()) {
             return response('Unauthorized.', 401);
         }
 
