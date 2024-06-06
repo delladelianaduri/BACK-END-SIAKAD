@@ -13,6 +13,7 @@
 |
 */
 
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
@@ -29,4 +30,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('gurus', ['uses' => 'GuruController@store', 'middleware' => 'jwt.auth']);
     $router->put('gurus/{id}', ['uses' => 'GuruController@update', 'middleware' => 'jwt.auth']);
     $router->delete('gurus/{id}', ['uses' => 'GuruController@destroy', 'middleware' => 'jwt.auth']);
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('siswa', 'SiswaController@index');
+    $router->get('siswa/{nisn_siswa}', 'SiswaController@show');
+    $router->post('siswa', 'SiswaController@store');
+    $router->put('siswa/{nisn_siswa}', 'SiswaController@update');
+    $router->delete('siswa/{nisn_siswa}', 'SiswaController@destroy');
 });

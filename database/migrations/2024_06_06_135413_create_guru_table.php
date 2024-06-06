@@ -14,11 +14,11 @@ class CreateGuruTable extends Migration
     public function up()
     {
         Schema::create('gurus', function (Blueprint $table) {
-            $table->integer('no_induk')->primary();
+            $table->id();
+            $table->integer('no_induk')->unsigned()->unique();
             $table->string('nama', 100);
-            $table->enum('kedudukan', ['PNS', 'Non-PNS'])->default('PNS');
+            $table->enum('kedudukan', ['PNS', 'Non-PNS']);
             $table->string('alamat', 255);
-            $table->integer('id_guru')->unsigned();
             $table->timestamps();
         });
     }
