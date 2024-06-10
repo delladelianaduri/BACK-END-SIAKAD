@@ -4,24 +4,33 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateKelasTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('kelas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id_kelas');
+            $table->integer('tingkat_kelas');
+            $table->string('nama_kelas', 255);
+            $table->unsignedBigInteger('id_guru');
             $table->timestamps();
+
+            $table->foreign('id_guru')->references('id')->on('gurus')->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('kelas');
     }
-};
+}
