@@ -39,3 +39,19 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('siswa/{nisn_siswa}', 'SiswaController@update');
     $router->delete('siswa/{nisn_siswa}', 'SiswaController@destroy');
 });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('matpels', 'MatpelController@index');
+    $router->post('matpels', 'MatpelController@store');
+    $router->get('matpels/{id}', 'MatpelController@show');
+    $router->put('matpels/{id}', 'MatpelController@update');
+    $router->delete('matpels/{id}', 'MatpelController@destroy');
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('kelas', 'KelasController@index');
+    $router->post('kelas', 'KelasController@store');
+    $router->get('kelas/{id}', 'KelasController@show');
+    $router->put('kelas/{id}', 'KelasController@update');
+    $router->delete('kelas/{id}', 'KelasController@destroy');
+});
