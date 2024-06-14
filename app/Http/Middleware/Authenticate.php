@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class Authenticate
 {
@@ -29,6 +30,15 @@ class Authenticate
     {
         if ($this->auth->guard()->guest()) {
             return response('Unauthorized.', 401);
+        }
+
+        if ($request->has('logout')) {
+            try {
+                JWTAuth::parseToken()->invalidate();
+                return response()->json(['message' => 'Successfully logged out']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to logout'], 500);
+            }
         }
 
         return $next($request);

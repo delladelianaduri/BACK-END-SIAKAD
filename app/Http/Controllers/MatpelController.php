@@ -21,8 +21,9 @@ class MatpelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kd_matpel' => 'required|integer|unique:matpels',
+            'kd_matpel' => 'required|integer|unique:matpels,kd_matpel',
             'nama_matpel' => 'required|string|max:255',
+            'kode_kelas' => 'required|exists:kelas,kode_kelas', // Pastikan foreign key sesuai dengan struktur yang ada
         ]);
 
         $matpel = Matpel::create($request->all());
@@ -39,6 +40,7 @@ class MatpelController extends Controller
     {
         $this->validate($request, [
             'nama_matpel' => 'sometimes|required|string|max:255',
+            'kode_kelas' => 'sometimes|required|exists:kelas,kode_kelas', // Pastikan foreign key sesuai dengan struktur yang ada
         ]);
 
         $matpel = Matpel::findOrFail($id);

@@ -2,64 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kelas; // Import model Kelas
 
 class Matpel extends Model
 {
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'kd_matpel';
+    use HasFactory;
 
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
+    protected $table = 'matpels'; // Menetapkan nama tabel yang digunakan oleh model Matpel
 
-    /**
-     * The key type of the primary key.
-     *
-     * @var string
-     */
-    protected $keyType = 'integer';
+    protected $primaryKey = 'kd_matpel'; // Menetapkan primary key menjadi 'kd_matpel'
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['kd_matpel', 'nama_matpel'];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'matpels';
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'kd_matpel' => 'integer',
+    protected $fillable = [
+        'kd_matpel', 'nama_matpel', 'kode_kelas',
     ];
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    // Relationships jika ada
-    // public function relationship()
-    // {
-    //     return $this->belongsTo(RelatedModel::class);
-    // }
+    // Relasi dengan model Kelas
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kode_kelas', 'kode_kelas'); // Menghubungkan relasi dengan model Kelas
+    }
 }

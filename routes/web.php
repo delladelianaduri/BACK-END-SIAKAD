@@ -1,5 +1,12 @@
 <?php
 
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\GuruController;
+// use App\Http\Controllers\KelasController;
+// use App\Http\Controllers\MatpelController;
+// use App\Http\Controllers\NilaiController;
+// use App\Http\Controllers\SiswaController;
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -17,13 +24,14 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-/** @var \Laravel\Lumen\Routing\Router $router */
 
+
+// Auth Routes
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('/register', 'AuthController@register');
     $router->post('/login', 'AuthController@login');
 });
-
+// Guru Routes
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('gurus', ['uses' => 'GuruController@index']);
     $router->get('gurus/{id}', ['uses' => 'GuruController@show']);
@@ -31,15 +39,28 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('gurus/{id}', ['uses' => 'GuruController@update', 'middleware' => 'jwt.auth']);
     $router->delete('gurus/{id}', ['uses' => 'GuruController@destroy', 'middleware' => 'jwt.auth']);
 });
+// $router->get('/gurus', 'GuruController@index');
+// $router->get('/gurus/{id}', 'GuruController@show');
+// $router->post('/gurus', ['uses' => 'GuruController@store', 'middleware' => 'jwt.auth']);
+// $router->put('/gurus/{id}', ['uses' => 'GuruController@update', 'middleware' => 'jwt.auth']);
+// $router->delete('/gurus/{id}', ['uses' => 'GuruController@destroy', 'middleware' => 'jwt.auth']);
 
+
+// Siswa Routes
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('siswa', 'SiswaController@index');
-    $router->get('siswa/{nisn_siswa}', 'SiswaController@show');
-    $router->post('siswa', 'SiswaController@store');
-    $router->put('siswa/{nisn_siswa}', 'SiswaController@update');
-    $router->delete('siswa/{nisn_siswa}', 'SiswaController@destroy');
+    $router->get('siswas', 'SiswaController@index');
+    $router->get('siswas/{nisn_siswa}', 'SiswaController@show');
+    $router->post('siswas', 'SiswaController@store');
+    $router->put('siswas/{nisn_siswa}', 'SiswaController@update');
+    $router->delete('siswas/{nisn_siswa}', 'SiswaController@destroy');
 });
+// $router->get('/siswa', 'SiswaController@index');
+// $router->get('/siswa/{id}', 'SiswaController@show');
+// $router->post('/siswa', 'SiswaController@store');
+// $router->put('/siswa/{nisn_siswa}', 'SiswaController@update');
+// $router->delete('/siswa/{nisn_siswa}', 'SiswaController@destroy');
 
+// Matpel Routes
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('matpels', 'MatpelController@index');
     $router->post('matpels', 'MatpelController@store');
@@ -47,7 +68,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('matpels/{id}', 'MatpelController@update');
     $router->delete('matpels/{id}', 'MatpelController@destroy');
 });
+// $router->get('/matpels', 'MatpelController@index');
+// $router->post('/matpels', 'MatpelController@store');
+// $router->get('/matpels/{id}', 'MatpelController@show');
+// $router->put('/matpels/{id}', 'MatpelController@update');
+// $router->delete('/matpels/{id}', 'MatpelController@destroy');
 
+// Kelas Routes
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('kelas', 'KelasController@index');
     $router->post('kelas', 'KelasController@store');
@@ -55,3 +82,20 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('kelas/{id}', 'KelasController@update');
     $router->delete('kelas/{id}', 'KelasController@destroy');
 });
+
+// $router->get('/kelas', 'KelasController@index');
+// $router->post('/kelas', 'KelasController@store');
+// $router->get('/kelas/{id}', 'KelasController@show');
+// $router->put('/kelas/{id}', 'KelasController@update');
+// $router->delete('/kelas/{id}', 'KelasController@destroy');
+
+// Nilai Routes
+// $router->get('/nilai', 'NilaiController@index');
+// $router->post('/nilai', 'NilaiController@store');
+// $router->get('/nilai/{id}', 'NilaiController@show');
+// $router->put('/nilai/{id}', 'NilaiController@update');
+// $router->delete('/nilai/{id}', 'NilaiController@destroy');
+
+// Additional route
+//     $router->get('/siswas', 'SiswaController@getSiswas');
+// });
