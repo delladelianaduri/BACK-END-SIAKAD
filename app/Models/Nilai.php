@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Nilai extends Model
 {
@@ -18,5 +18,14 @@ class Nilai extends Model
         'uas',
         'nilai_akhir',
     ];
-}
 
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'nisn_siswa', 'nisn_siswa');
+    }
+
+    public function presensi()
+    {
+        return $this->hasMany(Presensi::class, 'nisn_siswa', 'nisn_siswa');
+    }
+}
