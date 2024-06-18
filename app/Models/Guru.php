@@ -12,7 +12,7 @@ class Guru extends Model
 
     protected $table = 'gurus'; // Menetapkan nama tabel yang digunakan oleh model Guru
 
-    protected $primaryKey = 'no_induk'; // Menetapkan primary key menjadi 'no_induk'
+    protected $primaryKey = 'id'; // Menetapkan primary key menjadi 'no_induk'
 
     protected $fillable = [
         'no_induk', 'nama', 'kedudukan', 'alamat', 'user_id',
