@@ -19,11 +19,11 @@ class Siswa extends Model
         'jns_kelamin',
         'tgl_lahir',
         'alamat',
-        'kelas_id',
+        'kode_kelas',
     ];
 
     public function kelas()
     {
-        return $this->belongsTo(Kelas::class, 'kelas_id', 'id_kelas');
+         return $this->belongsTo(Kelas::class, 'kode_kelas', 'kode_kelas');
     }
 }

@@ -18,7 +18,7 @@ class SiswaController extends Controller
     public function index()
     {
         try {
-            $siswa = Siswa::all();
+            $siswa = Siswa::with('kelas')->get(); // Mengambil data kelas juga
             return response()->json($siswa);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while fetching data'], 500);
@@ -34,6 +34,7 @@ class SiswaController extends Controller
                 'jns_kelamin' => 'required|string|max:1',
                 'tgl_lahir' => 'required|date',
                 'alamat' => 'required|string|max:255',
+                'kode_kelas' => 'required|exists:kelas,kode_kelas', // Validasi kode_kelas
             ]);
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->validator->errors()], 422);
@@ -52,7 +53,7 @@ class SiswaController extends Controller
     public function show($nisn_siswa)
     {
         try {
-            $siswa = Siswa::findOrFail($nisn_siswa);
+            $siswa = Siswa::with('kelas')->findOrFail($nisn_siswa); // Mengambil data kelas juga
             return response()->json($siswa);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Siswa not found'], 404);
@@ -69,6 +70,7 @@ class SiswaController extends Controller
                 'jns_kelamin' => 'sometimes|required|string|max:1',
                 'tgl_lahir' => 'sometimes|required|date',
                 'alamat' => 'sometimes|required|string|max:255',
+                'kode_kelas' => 'sometimes|required|exists:kelas,kode_kelas', // Validasi kode_kelas
             ]);
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->validator->errors()], 422);
