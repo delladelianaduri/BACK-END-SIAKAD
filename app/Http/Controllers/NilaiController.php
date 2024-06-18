@@ -7,11 +7,6 @@ use App\Models\Nilai;
 
 class NilaiController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
-    }
-
     public function index()
     {
         $nilai = Nilai::all();
@@ -21,13 +16,13 @@ class NilaiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nisn_siswa' => 'required|exists:siswas,nisn',
+            'nisn_siswa' => 'required|exists:siswas,nisn_siswa',
             'nama_siswa' => 'required|string|max:255',
-            'presensi' => 'required|integer',
-            'tugas' => 'required|integer',
-            'uts' => 'required|integer',
-            'uas' => 'required|integer',
-            'nilai_akhir' => 'required|integer',
+            'presensi' => 'required|numeric',
+            'tugas' => 'required|numeric',
+            'uts' => 'required|numeric',
+            'uas' => 'required|numeric',
+            'nilai_akhir' => 'required|numeric',
         ]);
 
         $nilai = Nilai::create($request->all());
@@ -36,31 +31,42 @@ class NilaiController extends Controller
 
     public function show($id)
     {
-        $nilai = Nilai::findOrFail($id);
+        $nilai = Nilai::find($id);
+        if (!$nilai) {
+            return response()->json(['message' => 'Nilai not found'], 404);
+        }
         return response()->json($nilai);
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nisn_siswa' => 'sometimes|required|exists:siswas,nisn',
-            'nama_siswa' => 'sometimes|required|string|max:255',
-            'presensi' => 'sometimes|required|integer',
-            'tugas' => 'sometimes|required|integer',
-            'uts' => 'sometimes|required|integer',
-            'uas' => 'sometimes|required|integer',
-            'nilai_akhir' => 'sometimes|required|integer',
+            'nisn_siswa' => 'required|exists:siswas,nisn_siswa',
+            'nama_siswa' => 'required|string|max:255',
+            'presensi' => 'required|numeric',
+            'tugas' => 'required|numeric',
+            'uts' => 'required|numeric',
+            'uas' => 'required|numeric',
+            'nilai_akhir' => 'required|numeric',
         ]);
 
-        $nilai = Nilai::findOrFail($id);
+        $nilai = Nilai::find($id);
+        if (!$nilai) {
+            return response()->json(['message' => 'Nilai not found'], 404);
+        }
+
         $nilai->update($request->all());
-        return response()->json($nilai, 200);
+        return response()->json($nilai);
     }
 
     public function destroy($id)
     {
-        $nilai = Nilai::findOrFail($id);
+        $nilai = Nilai::find($id);
+        if (!$nilai) {
+            return response()->json(['message' => 'Nilai not found'], 404);
+        }
+
         $nilai->delete();
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Nilai deleted successfully']);
     }
 }

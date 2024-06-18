@@ -95,3 +95,19 @@ $router->group(
         $router->delete('presensi/{id}', 'PresensiController@destroy');
     }
 );
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('nilai', 'NilaiController@index');
+    $router->post('nilai', 'NilaiController@store');
+    $router->get('nilai/{id}', 'NilaiController@show');
+    $router->put('nilai/{id}', 'NilaiController@update');
+    $router->delete('nilai/{id}', 'NilaiController@destroy');
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->post('logout', 'AuthController@logout');
+});
+
+$router->group(['middleware' => 'jwt'], function () use ($router) {
+    // Route yang membutuhkan autentikasi JWT di sini
+});
