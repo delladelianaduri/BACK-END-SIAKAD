@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Nilai extends Model
 {
@@ -19,13 +19,15 @@ class Nilai extends Model
         'nilai_akhir',
     ];
 
-    public function siswa()
-    {
-        return $this->belongsTo(Siswa::class, 'nisn_siswa', 'nisn_siswa');
-    }
-
+    // Definisikan relasi dengan Presensi
     public function presensi()
     {
-        return $this->hasMany(Presensi::class, 'nisn_siswa', 'nisn_siswa');
+        return $this->belongsTo(Presensi::class, 'nisn_siswa', 'nisn_siswa');
+    }
+
+    // Method untuk mengisi nilai presensi dari tabel presensi
+    public function getPresensiValue()
+    {
+        return $this->presensi ? $this->presensi->status : null;
     }
 }
