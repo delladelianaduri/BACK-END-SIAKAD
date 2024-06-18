@@ -9,13 +9,13 @@ class PresensiController extends Controller
 {
     public function index()
     {
-        $presensi = Presensi::with(['siswa', 'kelas'])->get();
+        $presensi = Presensi::with(['siswas', 'kelas'])->get();
         return response()->json($presensi);
     }
 
     public function show($id)
     {
-        $presensi = Presensi::with(['siswa', 'kelas'])->find($id);
+        $presensi = Presensi::with(['siswas', 'kelas'])->find($id);
         if (!$presensi) {
             return response()->json(['message' => 'Presensi not found'], 404);
         }
@@ -25,10 +25,11 @@ class PresensiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nisn_siswa' => 'required|exists:siswa,nisn_siswa',
+            'nisn_siswa' => 'required|exists:siswas,nisn_siswa',
             'kode_kelas' => 'required|exists:kelas,kode_kelas',
-            'tanggal' => 'required|date',
+            'tgl_presensi' => 'required|date',
             'status' => 'required|in:sakit,izin,alpha,hadir',
+            'nama_siswa' => 'required|string|max:255'
         ]);
 
         $presensi = Presensi::create($request->all());
@@ -38,9 +39,9 @@ class PresensiController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nisn_siswa' => 'required|exists:siswa,nisn_siswa',
+            'nisn_siswa' => 'required|exists:siswas,nisn_siswa',
             'kode_kelas' => 'required|exists:kelas,kode_kelas',
-            'tanggal' => 'required|date',
+            'tgl_presensi' => 'required|date',
             'status' => 'required|in:hadir,sakit,izin,alpha',
         ]);
 
@@ -66,10 +67,10 @@ class PresensiController extends Controller
 
     public function groupedByStatus()
     {
-        $hadir = Presensi::with(['siswa', 'kelas'])->where('status', 'hadir')->get();
-        $sakit = Presensi::with(['siswa', 'kelas'])->where('status', 'sakit')->get();
-        $izin = Presensi::with(['siswa', 'kelas'])->where('status', 'izin')->get();
-        $alpha = Presensi::with(['siswa', 'kelas'])->where('status', 'alpha')->get();
+        $hadir = Presensi::with(['siswas', 'kelas'])->where('status', 'hadir')->get();
+        $sakit = Presensi::with(['siswas', 'kelas'])->where('status', 'sakit')->get();
+        $izin = Presensi::with(['siswas', 'kelas'])->where('status', 'izin')->get();
+        $alpha = Presensi::with(['siswas', 'kelas'])->where('status', 'alpha')->get();
 
         return response()->json([
             'hadir' => $hadir,

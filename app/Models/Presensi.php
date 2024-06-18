@@ -9,7 +9,7 @@ class Presensi extends Model
     protected $table = 'presensi';
 
     protected $fillable = [
-        'nisn_siswa', 'kode_kelas', 'tanggal', 'status',
+        'nisn_siswa', 'kode_kelas', 'tgl_presensi', 'status', 'nama_siswa' // Perhatikan penulisan 'nama_siswa' tanpa spasi
     ];
 
     public function siswa()

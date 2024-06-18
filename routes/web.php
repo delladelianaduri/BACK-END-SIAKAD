@@ -83,30 +83,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('kelas/{id}', 'KelasController@destroy');
 });
 
-//Presensi Rotes
-$router->group(['prefix' => 'api'], function () use ($router) {
-    $router->get('presensi', 'PresensiController@index');
-    $router->post('presensi', 'PresensiController@store');
-    $router->get('presensi/{id}', 'PresensiController@show');
-    $router->put('presensi/{id}', 'PresensiController@update');
-    $router->delete('presensi/{id}', 'PresensiController@destroy');
-    $router->get('presensi/grouped', 'PresensiController@groupedByStatus'); // Contoh tambahan, untuk grup berdasarkan status
-});
-
-
-// $router->get('/kelas', 'KelasController@index');
-// $router->post('/kelas', 'KelasController@store');
-// $router->get('/kelas/{id}', 'KelasController@show');
-// $router->put('/kelas/{id}', 'KelasController@update');
-// $router->delete('/kelas/{id}', 'KelasController@destroy');
-
-// Nilai Routes
-// $router->get('/nilai', 'NilaiController@index');
-// $router->post('/nilai', 'NilaiController@store');
-// $router->get('/nilai/{id}', 'NilaiController@show');
-// $router->put('/nilai/{id}', 'NilaiController@update');
-// $router->delete('/nilai/{id}', 'NilaiController@destroy');
-
-// Additional route
-//     $router->get('/siswas', 'SiswaController@getSiswas');
-// });
+// Rute untuk presensi
+$router->group(
+    ['prefix' => 'api'],
+    function () use ($router) {
+        $router->get('presensi/grouped', 'PresensiController@groupedByStatus');
+        $router->get('presensi', 'PresensiController@index');
+        $router->post('presensi', 'PresensiController@store');
+        $router->get('presensi/{id}', 'PresensiController@show');
+        $router->put('presensi/{id}', 'PresensiController@update');
+        $router->delete('presensi/{id}', 'PresensiController@destroy');
+    }
+);
