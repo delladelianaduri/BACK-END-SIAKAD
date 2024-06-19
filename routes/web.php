@@ -104,6 +104,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('nilai/{id}', 'NilaiController@destroy');
 });
 
+$router->get('/api/dashboard', 'Api\DashboardController@index');
+
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('logout', 'AuthController@logout');
 });
