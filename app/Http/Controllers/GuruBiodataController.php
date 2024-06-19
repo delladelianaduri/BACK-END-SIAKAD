@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,8 +13,8 @@ class GuruBiodataController extends Controller
         $guru = Guru::findOrFail($id);
 
         $data = [
-            'nomor_induk' => $guru->nomor_induk,
-            'nama_guru' => $guru->nama_guru,
+            'no_induk' => $guru->no_induk,
+            'nama' => $guru->nama,
             'kedudukan' => $guru->kedudukan,
             'alamat' => $guru->alamat,
             // Add more fields as needed

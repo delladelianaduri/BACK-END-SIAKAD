@@ -108,12 +108,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('dashboard', 'DashboardController@index');
 });
 
-$router->group(
-    ['prefix' => 'api'],
-    function () use ($router) {
-        $router->get('guru/{id}/biodata', 'GuruBiodataController@show');
-    }
-);
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('guru/{id}/biodata', 'GuruBiodataController@show');
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('cetak-nilai', 'CetakNilaiController@index');
+});
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('logout', 'AuthController@logout');
 });
