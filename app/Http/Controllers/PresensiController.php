@@ -25,7 +25,7 @@ class PresensiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nisn_siswa' => 'required|exists:siswas,nisn_siswa',
+            'nisn_siswa' => 'required|integer|unique:siswas,nisn_siswa',
             'kode_kelas' => 'required|exists:kelas,kode_kelas',
             'tgl_presensi' => 'required|date',
             'status' => 'required|in:sakit,izin,alpha,hadir',
